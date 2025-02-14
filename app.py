@@ -4,7 +4,6 @@ import json
 from utils_open_ai import get_openai_response
 from utils_obis import search_data, get_occurrences
 from disclaimer_popup import show_disclaimer_popup
-from video_popup import show_video
 
 # Configuración de la página
 st.set_page_config(page_title="OBIS Bot", page_icon="🧉", layout="wide")
@@ -37,11 +36,8 @@ if st.sidebar.button("Search"):
     else:
         st.session_state.json = None
 
-#if st.sidebar.button('Disclaimer'):
-    #show_disclaimer_popup()
-
-#if st.sidebar.button("Watch demo"):
-    #show_video()
+if st.sidebar.button('Disclaimer'):
+    show_disclaimer_popup()
 
 if st.session_state.json:
     st.header("Recovered Datasets")

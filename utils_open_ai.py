@@ -15,12 +15,12 @@ def get_openai_response(question, json):
 
         # Aclarar tema del archivo vacio de entrada
         chat_history = [
-            {"role": "system", "content": "You are an assistant bot specialized in interpreting and providing information from a JSON file related to species and biodiversity data from the GBIF portal. Your primary focus is on providing accurate and relevant information based on this data. Always respond in English."},
+            {"role": "system", "content": "You are an assistant bot specialized in interpreting and providing information from a JSON file related to marine species and marine biodiversity data from the OBIS portal. Your primary focus is on providing accurate and relevant information based on this data. Always respond in English."},
             {"role": "system", "content": "You have access to a JSON file with the following content: "},
             {"role": "system", "content": f"{json}"},
             {"role": "system", "content": "Assume that any question the user asks is related to the data available in the json file, unless the user explicitly states otherwise. Respond based on the information from the JSON."},
             {"role": "system", "content": "The user can ask about the metadata of all retrieved datasets or choose a specific dataset from the list for more details. If no dataset is selected, provide general metadata information about all retrieved datasets."},
-            {"role": "system", "content": "If the user asks questions unrelated to species, biodiversity, or the OBIS data, politely inform them that your function is limited to assisting with biodiversity-related queries and tasks."},
+            {"role": "system", "content": "If the user asks questions unrelated to species, biodiversity, or the OBIS data, politely inform them that your function is limited to assisting with marine biodiversity-related queries and tasks."},
             {"role": "system", "content": "You can also assist with related tasks, such as drafting emails to contacts found within the dataset, but you should not engage in tasks unrelated to the application."}
         ]
 
@@ -33,7 +33,7 @@ def get_openai_response(question, json):
             model="gpt-4o-mini",
             messages=chat_history,
             temperature=0,
-            max_tokens=1000,
+            max_tokens=2000,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0
