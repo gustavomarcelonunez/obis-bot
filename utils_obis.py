@@ -77,6 +77,8 @@ def concat_metadata(dataset_id):
                 "contacts": [
                     {
                         "name": f"{contact.get('givenname', '')} {contact.get('surname', '')}".strip(),
+                        "role": contact.get("role", "N/A"),
+                        "type": contact.get("type", "N/A"),
                         "organization": contact.get("organization", "N/A"),
                         "email": contact.get("email", "N/A")
                     }
