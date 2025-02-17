@@ -43,11 +43,48 @@ def get_occurrences(dataset_id):
                 for dataset in data["results"]
             ]
 
+            # Obtener y concatenar los metadatos
+            metadata = concat_metadata(dataset_id)
+            result_with_metadata = {
+                "metadata": metadata,
+                "occurrences": filtered_results
+            }
 
             with open('ocurrencias.json', 'w') as f:
-                json.dump(data, f, indent=4)  # Guardar con indentación para mejor legibilidad
-            st.session_state.json = {"results": filtered_results}
+                json.dump(result_with_metadata, f, indent=4)  # Guardar con indentación para mejor legibilidad
+
+            st.session_state.json = {"results": result_with_metadata}
         else:
             st.warning("No results found.")
     else:
         st.error(f"Request error: {response.status_code} - {response.text}")
+
+
+def concat_metadata(dataset_id):
+    try:
+        with open("datasets.json", "r") as f:
+            metadata_list = json.load(f)
+
+        # Buscar el dataset correspondiente en la lista de metadatos
+        dataset_metadata = next((dataset for dataset in metadata_list["results"] if dataset["id"] == dataset_id), None)
+
+        if dataset_metadata:
+            # Extraer información relevante
+            metadata_info = {
+                "title": dataset_metadata.get("title", "N/A"),
+                "citation": dataset_metadata.get("citation", "N/A"),
+                "institutes": [inst["name"] for inst in dataset_metadata.get("institutes", [])],
+                "contacts": [
+                    {
+                        "name": f"{contact.get('givenname', '')} {contact.get('surname', '')}".strip(),
+                        "organization": contact.get("organization", "N/A"),
+                        "email": contact.get("email", "N/A")
+                    }
+                    for contact in dataset_metadata.get("contacts", [])
+                ]
+            }
+            return metadata_info
+        else:
+            return {"error": "Dataset metadata not found"}
+    except Exception as e:
+        return {"error": f"Failed to read metadata: {str(e)}"}
