@@ -70,22 +70,22 @@ def concat_metadata(dataset_id):
 
         if dataset_metadata:
             # Extraer información relevante
-            metadata_info = {
-                "title": dataset_metadata.get("title", "N/A"),
-                "citation": dataset_metadata.get("citation", "N/A"),
-                "institutes": [inst["name"] for inst in dataset_metadata.get("institutes", [])],
-                "contacts": [
-                    {
-                        "name": f"{contact.get('givenname', '')} {contact.get('surname', '')}".strip(),
-                        "role": contact.get("role", "N/A"),
-                        "type": contact.get("type", "N/A"),
-                        "organization": contact.get("organization", "N/A"),
-                        "email": contact.get("email", "N/A")
-                    }
-                    for contact in dataset_metadata.get("contacts", [])
-                ]
-            }
-            return metadata_info
+         #   metadata_info = {
+         #       "title": dataset_metadata.get("title", "N/A"),
+         #       "citation": dataset_metadata.get("citation", "N/A"),
+         #       "institutes": [inst["name"] for inst in dataset_metadata.get("institutes", [])],
+         #       "contacts": [
+         #           {
+         #               "name": f"{contact.get('givenname', '')} {contact.get('surname', '')}".strip(),
+         #               "role": contact.get("role", "N/A"),
+         #               "type": contact.get("type", "N/A"),
+         #               "organization": contact.get("organization", "N/A"),
+         #               "email": contact.get("email", "N/A")
+         #           }
+         #           for contact in dataset_metadata.get("contacts", [])
+        #        ]
+       #     }
+            return dataset_metadata
         else:
             return {"error": "Dataset metadata not found"}
     except Exception as e:
